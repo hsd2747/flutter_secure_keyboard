@@ -406,6 +406,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   }
 
   Widget _buildActionKey(SecureKeyboardKey key, int keyRowsLength) {
+    String keyText;
     Widget actionKey;
 
     switch (key.action) {
@@ -428,20 +429,18 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         actionKey = Icon(Icons.arrow_upward, color: widget.keyTextStyle.color);
         break;
       case SecureKeyboardKeyAction.Clear:
-        actionKey = Text(
-          widget.clearKeyText ?? (Platform.localeName == 'ko_KR')
-              ? '초기화'
-              : 'Clear',
-          style: widget.keyTextStyle
-        );
+        keyText = widget.clearKeyText;
+        if (keyText == null || keyText.isEmpty)
+          keyText = (Platform.localeName == 'ko_KR') ? '초기화' : 'Clear';
+
+        actionKey = Text(keyText, style: widget.keyTextStyle);
         break;
       case SecureKeyboardKeyAction.Done:
-        actionKey = Text(
-          widget.doneKeyText ?? (Platform.localeName == 'ko_KR')
-              ? '입력완료'
-              : 'Done',
-          style: widget.keyTextStyle
-        );
+        keyText = widget.doneKeyText;
+        if (keyText == null || keyText.isEmpty)
+          keyText = (Platform.localeName == 'ko_KR') ? '입력완료' : 'Done';
+
+        actionKey = Text(keyText, style: widget.keyTextStyle);
         break;
       case SecureKeyboardKeyAction.SpecialChars:
         actionKey = Text(

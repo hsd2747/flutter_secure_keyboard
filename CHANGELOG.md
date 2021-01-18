@@ -1,3 +1,8 @@
+## 1.0.3
+
+* Change action key name from confirm to done.
+* Fixed an error that occur when setting the key text.
+
 ## 1.0.2
 
 * Add screenCaptureDetectedAlertTitle param.
