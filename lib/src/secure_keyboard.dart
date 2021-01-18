@@ -76,6 +76,10 @@ class SecureKeyboard extends StatefulWidget {
   /// Parameter to set keyboard done key color.
   final Color doneKeyColor;
 
+  /// Set the color to display when activated with the shift action key.
+  /// If the value is null, `doneKeyColor` is used.
+  final Color activatedKeyColor;
+
   /// Parameter to set keyboard key text style.
   final TextStyle keyTextStyle;
 
@@ -112,6 +116,7 @@ class SecureKeyboard extends StatefulWidget {
     this.stringKeyColor = const Color(0xFF313131),
     this.actionKeyColor = const Color(0xFF222222),
     this.doneKeyColor = const Color(0xFF1C7CDC),
+    this.activatedKeyColor,
     this.keyTextStyle = const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
     this.inputTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
     this.screenCaptureDetectedAlertTitle,
@@ -454,15 +459,21 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         return Expanded(child: SizedBox());
     }
 
+    Color keyColor;
+    if (key.action == SecureKeyboardKeyAction.Done)
+      keyColor = widget.doneKeyColor;
+    else if (key.action == SecureKeyboardKeyAction.Shift && _isShiftEnabled)
+      keyColor = widget.activatedKeyColor ?? widget.doneKeyColor;
+    else
+      keyColor = widget.actionKeyColor;
+
     return Expanded(
       child: Container(
         height: widget.height / keyRowsLength,
         padding: const EdgeInsets.all(1.5),
         child: Material(
           borderRadius: BorderRadius.circular(4.0),
-          color: (key.action == SecureKeyboardKeyAction.Done)
-              ? widget.doneKeyColor
-              : widget.actionKeyColor,
+          color: keyColor,
           child: InkWell(
             onTap: () => _onKeyPressed(key),
             child: Center(child: actionKey)

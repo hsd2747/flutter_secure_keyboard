@@ -27,6 +27,10 @@ class WithSecureKeyboard extends StatefulWidget {
   /// Parameter to set keyboard done key color.
   final Color doneKeyColor;
 
+  /// Set the color to display when activated with the shift action key.
+  /// If the value is null, `doneKeyColor` is used.
+  final Color activatedKeyColor;
+
   /// Parameter to set keyboard key text style.
   final TextStyle keyTextStyle;
 
@@ -51,6 +55,7 @@ class WithSecureKeyboard extends StatefulWidget {
     this.stringKeyColor = const Color(0xFF313131),
     this.actionKeyColor = const Color(0xFF222222),
     this.doneKeyColor = const Color(0xFF1C7CDC),
+    this.activatedKeyColor,
     this.keyTextStyle = const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
     this.inputTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
     this.screenCaptureDetectedAlertTitle,
@@ -101,6 +106,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
           stringKeyColor: widget.stringKeyColor,
           actionKeyColor: widget.actionKeyColor,
           doneKeyColor: widget.doneKeyColor,
+          activatedKeyColor: widget.activatedKeyColor,
           keyTextStyle: widget.keyTextStyle,
           inputTextStyle: widget.inputTextStyle,
           screenCaptureDetectedAlertTitle: widget.screenCaptureDetectedAlertTitle,

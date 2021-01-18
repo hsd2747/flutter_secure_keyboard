@@ -11,7 +11,7 @@ To use this plugin, add `flutter_secure_keyboard` as a [dependency in your pubsp
 
 ```yaml
 dependencies:
-  flutter_secure_keyboard: ^1.0.2
+  flutter_secure_keyboard: ^1.0.4
 ```
 
 ## Examples
@@ -123,6 +123,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `stringKeyColor` | Parameter to set keyboard string key(alphanumeric, numeric..) color. |
 | `actionKeyColor` | Parameter to set keyboard action key(shift, backspace, clear..) color. |
 | `doneKeyColor` | Parameter to set keyboard done key color. |
+| `activatedKeyColor` | Set the color to display when activated with the shift action key. If the value is null, `doneKeyColor` is used. |
 | `keyTextStyle` | Parameter to set keyboard key text style. |
 | `inputTextStyle` | Parameter to set keyboard input text style. |
 | `screenCaptureDetectedAlertTitle` | Security Alert title, only works on ios. |

@@ -1,3 +1,7 @@
+## 1.0.4
+
+* Add activatedKeyColor param.
+
 ## 1.0.3
 
 * Change action key name from confirm to done.
