@@ -1,7 +1,7 @@
 /// Enumeration that defines the action of input key.
 enum SecureKeyboardKeyAction {
   Backspace,
-  Confirm,
+  Done,
   Clear,
   Shift,
   Blank,

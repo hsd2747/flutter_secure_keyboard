@@ -73,7 +73,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: passwordTextFieldFocusNode,
               initText: passwordEditor.text,
               hintText: 'password',
-              onConfirmKeyPressed: (List<int> charCodes) {
+              onDoneKeyPressed: (List<int> charCodes) {
                 passwordEditor.text = String.fromCharCodes(charCodes);
               }
             );
@@ -100,7 +100,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: pinCodeTextFieldFocusNode,
               initText: pinCodeEditor.text,
               hintText: 'pinCode',
-              onConfirmKeyPressed: (List<int> charCodes) {
+              onDoneKeyPressed: (List<int> charCodes) {
                 pinCodeEditor.text = String.fromCharCodes(charCodes);
               }
             );
@@ -122,7 +122,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `backgroundColor` | Parameter to set the keyboard background color. |
 | `stringKeyColor` | Parameter to set keyboard string key(alphanumeric, numeric..) color. |
 | `actionKeyColor` | Parameter to set keyboard action key(shift, backspace, clear..) color. |
-| `confirmKeyColor` | Parameter to set keyboard confirm key color. |
+| `doneKeyColor` | Parameter to set keyboard done key color. |
 | `keyTextStyle` | Parameter to set keyboard key text style. |
 | `inputTextStyle` | Parameter to set keyboard input text style. |
 | `screenCaptureDetectedAlertTitle` | Security Alert title, only works on ios. |
@@ -147,7 +147,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `initText` | Set the initial value of the input text. |
 | `hintText` | The hint text to display when the input text is empty. |
 | `inputTextLengthSymbol` | Set the symbol to use when displaying the input text length. |
-| `confirmKeyText` | Set the confirm key text. |
+| `doneKeyText` | Set the done key text. |
 | `clearKeyText` | Set the clear key text. |
 | `obscuringCharacter` | Set the secure character to hide the input text. |
 | `maxLength` | Set the maximum length of text that can be entered. |
@@ -155,5 +155,5 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `obscureText` | Whether to hide input text as secure characters. |
 | `onKeyPressed` | Called when the key is pressed. |
 | `onCharCodesChanged` | Called when the character codes changed. |
-| `onConfirmKeyPressed`* | Called when the confirm key is pressed. |
+| `onDoneKeyPressed`* | Called when the done key is pressed. |
 | `onCloseKeyPressed` | Called when the close key is pressed. |

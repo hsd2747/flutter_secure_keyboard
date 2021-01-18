@@ -57,8 +57,8 @@ class SecureKeyboardKeyGenerator {
           // Backspace
           rowKeys.add(_backspaceActionKey());
 
-          // Confirm
-          rowKeys.add(_confirmActionKey());
+          // Done
+          rowKeys.add(_doneActionKey());
           break;
         default:
           rowKeys = _getStringKeyRow(_numericKeyRows, rowNum);
@@ -110,8 +110,8 @@ class SecureKeyboardKeyGenerator {
           // Clear
           rowKeys.add(_clearActionKey());
 
-          // Confirm
-          rowKeys.add(_confirmActionKey());
+          // Done
+          rowKeys.add(_doneActionKey());
           break;
         default:
           rowKeys = _getStringKeyRow(_alphanumericKeyRows, rowNum);
@@ -164,8 +164,8 @@ class SecureKeyboardKeyGenerator {
           // Clear
           rowKeys.add(_clearActionKey());
 
-          // Confirm
-          rowKeys.add(_confirmActionKey());
+          // Done
+          rowKeys.add(_doneActionKey());
           break;
         default:
           rowKeys = _getStringKeyRow(_specialCharsKeyRows, rowNum);
@@ -206,11 +206,11 @@ class SecureKeyboardKeyGenerator {
     );
   }
 
-  /// Returns the confirm action key.
-  SecureKeyboardKey _confirmActionKey() {
+  /// Returns the done action key.
+  SecureKeyboardKey _doneActionKey() {
     return SecureKeyboardKey(
       type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.Confirm
+      action: SecureKeyboardKeyAction.Done
     );
   }
 

@@ -28,8 +28,8 @@ class SecureKeyboard extends StatefulWidget {
   /// Called when the character codes changed.
   final ValueChanged<List<int>> onCharCodesChanged;
 
-  /// Called when the confirm key is pressed.
-  final ValueChanged<List<int>> onConfirmKeyPressed;
+  /// Called when the done key is pressed.
+  final ValueChanged<List<int>> onDoneKeyPressed;
 
   /// Called when the close key is pressed.
   final VoidCallback onCloseKeyPressed;
@@ -43,8 +43,8 @@ class SecureKeyboard extends StatefulWidget {
   /// Set the symbol to use when displaying the input text length.
   final String inputTextLengthSymbol;
 
-  /// Set the confirm key text.
-  final String confirmKeyText;
+  /// Set the done key text.
+  final String doneKeyText;
 
   /// Set the clear key text.
   final String clearKeyText;
@@ -73,8 +73,8 @@ class SecureKeyboard extends StatefulWidget {
   /// Parameter to set keyboard action key(shift, backspace, clear..) color.
   final Color actionKeyColor;
 
-  /// Parameter to set keyboard confirm key color.
-  final Color confirmKeyColor;
+  /// Parameter to set keyboard done key color.
+  final Color doneKeyColor;
 
   /// Parameter to set keyboard key text style.
   final TextStyle keyTextStyle;
@@ -96,12 +96,12 @@ class SecureKeyboard extends StatefulWidget {
     @required this.type,
     @required this.onKeyPressed,
     @required this.onCharCodesChanged,
-    @required this.onConfirmKeyPressed,
+    @required this.onDoneKeyPressed,
     @required this.onCloseKeyPressed,
     this.initText = '',
     this.hintText = '',
     this.inputTextLengthSymbol,
-    this.confirmKeyText,
+    this.doneKeyText,
     this.clearKeyText,
     this.obscuringCharacter = '•',
     this.maxLength,
@@ -111,7 +111,7 @@ class SecureKeyboard extends StatefulWidget {
     this.backgroundColor = const Color(0xFF0A0A0A),
     this.stringKeyColor = const Color(0xFF313131),
     this.actionKeyColor = const Color(0xFF222222),
-    this.confirmKeyColor = const Color(0xFF1C7CDC),
+    this.doneKeyColor = const Color(0xFF1C7CDC),
     this.keyTextStyle = const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
     this.inputTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
     this.screenCaptureDetectedAlertTitle,
@@ -120,7 +120,7 @@ class SecureKeyboard extends StatefulWidget {
   })  : assert(type != null),
         assert(onKeyPressed != null),
         assert(onCharCodesChanged != null),
-        assert(onConfirmKeyPressed != null),
+        assert(onDoneKeyPressed != null),
         assert(onCloseKeyPressed != null),
         assert(initText != null),
         assert(hintText != null),
@@ -131,7 +131,7 @@ class SecureKeyboard extends StatefulWidget {
         assert(backgroundColor != null),
         assert(stringKeyColor != null),
         assert(actionKeyColor != null),
-        assert(confirmKeyColor != null),
+        assert(doneKeyColor != null),
         assert(keyTextStyle != null),
         assert(inputTextStyle != null),
         super(key: key);
@@ -192,9 +192,9 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
           }
           break;
           
-        // Confirm
-        case SecureKeyboardKeyAction.Confirm:
-          widget.onConfirmKeyPressed(_charCodes);
+        // Done
+        case SecureKeyboardKeyAction.Done:
+          widget.onDoneKeyPressed(_charCodes);
           break;
           
         // Clear
@@ -435,11 +435,11 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
           style: widget.keyTextStyle
         );
         break;
-      case SecureKeyboardKeyAction.Confirm:
+      case SecureKeyboardKeyAction.Done:
         actionKey = Text(
-          widget.confirmKeyText ?? (Platform.localeName == 'ko_KR')
+          widget.doneKeyText ?? (Platform.localeName == 'ko_KR')
               ? '입력완료'
-              : 'Confirm',
+              : 'Done',
           style: widget.keyTextStyle
         );
         break;
@@ -461,8 +461,8 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         padding: const EdgeInsets.all(1.5),
         child: Material(
           borderRadius: BorderRadius.circular(4.0),
-          color: (key.action == SecureKeyboardKeyAction.Confirm)
-              ? widget.confirmKeyColor
+          color: (key.action == SecureKeyboardKeyAction.Done)
+              ? widget.doneKeyColor
               : widget.actionKeyColor,
           child: InkWell(
             onTap: () => _onKeyPressed(key),

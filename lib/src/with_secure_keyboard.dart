@@ -24,8 +24,8 @@ class WithSecureKeyboard extends StatefulWidget {
   /// Parameter to set keyboard action key(shift, backspace, clear..) color.
   final Color actionKeyColor;
 
-  /// Parameter to set keyboard confirm key color.
-  final Color confirmKeyColor;
+  /// Parameter to set keyboard done key color.
+  final Color doneKeyColor;
 
   /// Parameter to set keyboard key text style.
   final TextStyle keyTextStyle;
@@ -50,7 +50,7 @@ class WithSecureKeyboard extends StatefulWidget {
     this.backgroundColor = const Color(0xFF0A0A0A),
     this.stringKeyColor = const Color(0xFF313131),
     this.actionKeyColor = const Color(0xFF222222),
-    this.confirmKeyColor = const Color(0xFF1C7CDC),
+    this.doneKeyColor = const Color(0xFF1C7CDC),
     this.keyTextStyle = const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
     this.inputTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
     this.screenCaptureDetectedAlertTitle,
@@ -62,7 +62,7 @@ class WithSecureKeyboard extends StatefulWidget {
         assert(backgroundColor != null),
         assert(stringKeyColor != null),
         assert(actionKeyColor != null),
-        assert(confirmKeyColor != null),
+        assert(doneKeyColor != null),
         assert(keyTextStyle != null),
         assert(inputTextStyle != null),
         super(key: key);
@@ -82,7 +82,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
 
         final onKeyPressed = widget.controller._onKeyPressed;
         final onCharCodesChanged = widget.controller._onCharCodesChanged;
-        final onConfirmKeyPressed = widget.controller._onConfirmKeyPressed;
+        final onDoneKeyPressed = widget.controller._onDoneKeyPressed;
         final onCloseKeyPressed = widget.controller._onCloseKeyPressed;
 
         secureKeyboard = SecureKeyboard(
@@ -90,7 +90,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
           initText: widget.controller._initText,
           hintText: widget.controller._hintText,
           inputTextLengthSymbol: widget.controller._inputTextLengthSymbol,
-          confirmKeyText: widget.controller._confirmKeyText,
+          doneKeyText: widget.controller._doneKeyText,
           clearKeyText: widget.controller._clearKeyText,
           obscuringCharacter: widget.controller._obscuringCharacter,
           maxLength: widget.controller._maxLength,
@@ -100,7 +100,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
           backgroundColor: widget.backgroundColor,
           stringKeyColor: widget.stringKeyColor,
           actionKeyColor: widget.actionKeyColor,
-          confirmKeyColor: widget.confirmKeyColor,
+          doneKeyColor: widget.doneKeyColor,
           keyTextStyle: widget.keyTextStyle,
           inputTextStyle: widget.inputTextStyle,
           screenCaptureDetectedAlertTitle: widget.screenCaptureDetectedAlertTitle,
@@ -114,9 +114,9 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
             if (onCharCodesChanged != null)
               onCharCodesChanged(charCodes);
           },
-          onConfirmKeyPressed: (charCodes) {
+          onDoneKeyPressed: (charCodes) {
             widget.controller.hide();
-            onConfirmKeyPressed(charCodes);
+            onDoneKeyPressed(charCodes);
           },
           onCloseKeyPressed: () {
             widget.controller.hide();
@@ -184,7 +184,7 @@ class SecureKeyboardController extends ChangeNotifier {
   String _initText;
   String _hintText;
   String _inputTextLengthSymbol;
-  String _confirmKeyText;
+  String _doneKeyText;
   String _clearKeyText;
   String _obscuringCharacter;
   int _maxLength;
@@ -193,7 +193,7 @@ class SecureKeyboardController extends ChangeNotifier {
 
   ValueChanged<SecureKeyboardKey> _onKeyPressed;
   ValueChanged<List<int>> _onCharCodesChanged;
-  ValueChanged<List<int>> _onConfirmKeyPressed;
+  ValueChanged<List<int>> _onDoneKeyPressed;
   VoidCallback _onCloseKeyPressed;
 
   /// Show a secure keyboard.
@@ -203,7 +203,7 @@ class SecureKeyboardController extends ChangeNotifier {
     String initText = '',
     String hintText = '',
     String inputTextLengthSymbol,
-    String confirmKeyText,
+    String doneKeyText,
     String clearKeyText,
     String obscuringCharacter = '•',
     int maxLength,
@@ -211,7 +211,7 @@ class SecureKeyboardController extends ChangeNotifier {
     bool obscureText = true,
     ValueChanged<SecureKeyboardKey> onKeyPressed,
     ValueChanged<List<int>> onCharCodesChanged,
-    @required ValueChanged<List<int>> onConfirmKeyPressed,
+    @required ValueChanged<List<int>> onDoneKeyPressed,
     VoidCallback onCloseKeyPressed
   }) {
     assert(type != null);
@@ -220,14 +220,14 @@ class SecureKeyboardController extends ChangeNotifier {
     assert(obscuringCharacter != null && obscuringCharacter.isNotEmpty);
     assert(alwaysCaps != null);
     assert(obscureText != null);
-    assert(onConfirmKeyPressed != null);
+    assert(onDoneKeyPressed != null);
 
     _type = type;
     _textFieldFocusNode = textFieldFocusNode;
     _initText = initText;
     _hintText = hintText;
     _inputTextLengthSymbol = inputTextLengthSymbol;
-    _confirmKeyText = confirmKeyText;
+    _doneKeyText = doneKeyText;
     _clearKeyText = clearKeyText;
     _obscuringCharacter = obscuringCharacter;
     _maxLength = maxLength;
@@ -235,7 +235,7 @@ class SecureKeyboardController extends ChangeNotifier {
     _obscureText = obscureText;
     _onKeyPressed = onKeyPressed;
     _onCharCodesChanged = onCharCodesChanged;
-    _onConfirmKeyPressed = onConfirmKeyPressed;
+    _onDoneKeyPressed = onDoneKeyPressed;
     _onCloseKeyPressed = onCloseKeyPressed;
     _isShowing = true;
     notifyListeners();
@@ -248,7 +248,7 @@ class SecureKeyboardController extends ChangeNotifier {
     _initText = null;
     _hintText = null;
     _inputTextLengthSymbol = null;
-    _confirmKeyText = null;
+    _doneKeyText = null;
     _clearKeyText = null;
     _obscuringCharacter = null;
     _maxLength = null;
@@ -256,7 +256,7 @@ class SecureKeyboardController extends ChangeNotifier {
     _obscureText = null;
     _onKeyPressed = null;
     _onCharCodesChanged = null;
-    _onConfirmKeyPressed = null;
+    _onDoneKeyPressed = null;
     _onCloseKeyPressed = null;
     _isShowing = false;
     notifyListeners();

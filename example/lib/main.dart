@@ -69,7 +69,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: passwordTextFieldFocusNode,
               initText: passwordEditor.text,
               hintText: 'password',
-              onConfirmKeyPressed: (List<int> charCodes) {
+              onDoneKeyPressed: (List<int> charCodes) {
                 passwordEditor.text = String.fromCharCodes(charCodes);
               }
             );
@@ -96,7 +96,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: pinCodeTextFieldFocusNode,
               initText: pinCodeEditor.text,
               hintText: 'pinCode',
-              onConfirmKeyPressed: (List<int> charCodes) {
+              onDoneKeyPressed: (List<int> charCodes) {
                 pinCodeEditor.text = String.fromCharCodes(charCodes);
               }
             );

@@ -13,7 +13,7 @@ class SecureKeyboardKey {
   /// Key type (Action, String)
   final SecureKeyboardKeyType type;
 
-  /// Key action (Backspace, Confirm, Clear, Shift, Blank, SpecialChars)
+  /// Key action (Backspace, Done, Clear, Shift, Blank, SpecialChars)
   final SecureKeyboardKeyAction action;
 
   SecureKeyboardKey({
