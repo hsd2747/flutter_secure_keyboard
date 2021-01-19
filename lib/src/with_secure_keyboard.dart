@@ -122,7 +122,8 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
           },
           onDoneKeyPressed: (charCodes) {
             widget.controller.hide();
-            onDoneKeyPressed(charCodes);
+            if (onDoneKeyPressed != null)
+              onDoneKeyPressed(charCodes);
           },
           onCloseKeyPressed: () {
             widget.controller.hide();
@@ -217,7 +218,7 @@ class SecureKeyboardController extends ChangeNotifier {
     bool obscureText = true,
     ValueChanged<SecureKeyboardKey> onKeyPressed,
     ValueChanged<List<int>> onCharCodesChanged,
-    @required ValueChanged<List<int>> onDoneKeyPressed,
+    ValueChanged<List<int>> onDoneKeyPressed,
     VoidCallback onCloseKeyPressed
   }) {
     assert(type != null);
@@ -226,7 +227,6 @@ class SecureKeyboardController extends ChangeNotifier {
     assert(obscuringCharacter != null && obscuringCharacter.isNotEmpty);
     assert(alwaysCaps != null);
     assert(obscureText != null);
-    assert(onDoneKeyPressed != null);
 
     _type = type;
     _textFieldFocusNode = textFieldFocusNode;

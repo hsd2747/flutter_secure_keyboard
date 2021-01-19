@@ -11,7 +11,7 @@ To use this plugin, add `flutter_secure_keyboard` as a [dependency in your pubsp
 
 ```yaml
 dependencies:
-  flutter_secure_keyboard: ^1.0.4
+  flutter_secure_keyboard: ^1.0.5
 ```
 
 ## Examples
@@ -156,5 +156,5 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `obscureText` | Whether to hide input text as secure characters. |
 | `onKeyPressed` | Called when the key is pressed. |
 | `onCharCodesChanged` | Called when the character codes changed. |
-| `onDoneKeyPressed`* | Called when the done key is pressed. |
+| `onDoneKeyPressed` | Called when the done key is pressed. |
 | `onCloseKeyPressed` | Called when the close key is pressed. |

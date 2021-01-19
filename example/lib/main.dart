@@ -69,7 +69,8 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: passwordTextFieldFocusNode,
               initText: passwordEditor.text,
               hintText: 'password',
-              onDoneKeyPressed: (List<int> charCodes) {
+              // Use onCharCodesChanged to have text entered in real time.
+              onCharCodesChanged: (List<int> charCodes) {
                 passwordEditor.text = String.fromCharCodes(charCodes);
               }
             );
@@ -96,6 +97,8 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: pinCodeTextFieldFocusNode,
               initText: pinCodeEditor.text,
               hintText: 'pinCode',
+              // Use onDoneKeyPressed to allow text to be entered when you press the done key,
+              // or to do something like encryption.
               onDoneKeyPressed: (List<int> charCodes) {
                 pinCodeEditor.text = String.fromCharCodes(charCodes);
               }

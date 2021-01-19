@@ -1,3 +1,9 @@
+## 1.0.5
+
+* README updates.
+* Example updates.
+* Remove onDoneKeyPressed required annotation.
+
 ## 1.0.4
 
 * Add activatedKeyColor param.
