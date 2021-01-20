@@ -1,3 +1,9 @@
+## 1.0.6
+
+* Example updates.
+* Documentation updates.
+* Add code so that the page does not close when the back button on the soft keyboard is pressed.
+
 ## 1.0.5
 
 * README updates.
