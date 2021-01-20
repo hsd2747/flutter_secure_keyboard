@@ -256,14 +256,17 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     final keyboardKey = _buildKeyboardKey(keyRows);
     keyboardKey.insert(0, _buildKeyInputMonitor());
 
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: widget.height + keyInputMonitorHeight,
-      color: widget.backgroundColor,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: keyboardKey
+    return WillPopScope(
+      onWillPop: widget.onCloseKeyPressed,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: widget.height + keyInputMonitorHeight,
+        color: widget.backgroundColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: keyboardKey
+        ),
       ),
     );
   }
