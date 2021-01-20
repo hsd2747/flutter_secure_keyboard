@@ -29,6 +29,8 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 
   @override
   Widget build(BuildContext context) {
+    // We recommend that you set the secure keyboard to the top
+    // of the build function so that it can be seen properly.
     return WithSecureKeyboard(
       controller: secureKeyboardController,
       child: Scaffold(
@@ -39,7 +41,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
   }
 
   Widget _buildContentView() {
-    // We recommend using the ListView widget to prevent widget overflows.
+    // We recommend using the ListView widget to prevent widget overflow.
     return ListView(
       padding: const EdgeInsets.all(8.0),
       children: [
