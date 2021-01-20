@@ -4,7 +4,7 @@ import 'package:flutter_secure_keyboard/src/secure_keyboard.dart';
 import 'package:flutter_secure_keyboard/src/secure_keyboard_key.dart';
 import 'package:flutter_secure_keyboard/src/secure_keyboard_type.dart';
 
-/// Widget that implements a secure keyboard with controller.
+/// A widget that implements a secure keyboard with controller.
 class WithSecureKeyboard extends StatefulWidget {
   /// Controller for controlling the secure keyboard.
   final SecureKeyboardController controller;
@@ -177,7 +177,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
   }
 }
 
-/// Controller to control the secure keyboard.
+/// Controller to check or control the state of the secure keyboard.
 class SecureKeyboardController extends ChangeNotifier {
   bool _isShowing = false;
   /// Whether the secure keyboard is open.

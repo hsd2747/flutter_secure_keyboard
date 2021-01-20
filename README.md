@@ -33,6 +33,8 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 
   @override
   Widget build(BuildContext context) {
+    // We recommend that you set the secure keyboard to the top 
+    // of the build function so that it can be seen properly.
     return WithSecureKeyboard(
       controller: secureKeyboardController,
       child: Scaffold(
@@ -43,7 +45,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
   }
 
   Widget _buildContentView() {
-    // We recommend using the ListView widget to prevent widget overflows.
+    // We recommend using the ListView widget to prevent widget overflow.
     return ListView(
       padding: const EdgeInsets.all(8.0),
       children: [
@@ -73,7 +75,8 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: passwordTextFieldFocusNode,
               initText: passwordEditor.text,
               hintText: 'password',
-              onDoneKeyPressed: (List<int> charCodes) {
+              // Use onCharCodesChanged to have text entered in real time.
+              onCharCodesChanged: (List<int> charCodes) {
                 passwordEditor.text = String.fromCharCodes(charCodes);
               }
             );
@@ -100,6 +103,8 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
               textFieldFocusNode: pinCodeTextFieldFocusNode,
               initText: pinCodeEditor.text,
               hintText: 'pinCode',
+              // Use onDoneKeyPressed to allow text to be entered when you press the done key,
+              // or to do something like encryption.
               onDoneKeyPressed: (List<int> charCodes) {
                 pinCodeEditor.text = String.fromCharCodes(charCodes);
               }
@@ -112,7 +117,12 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 }
 ```
 
-## WithSecureKeyboard
+## Package composition
+
+* [WithSecureKeyboard] - A widget that implements a secure keyboard with controller.
+* [SecureKeyboardController] - Controller to check or control the state of the secure keyboard.
+
+### WithSecureKeyboard
 
 | Parameter | Description |
 |---|---|
@@ -130,7 +140,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `screenCaptureDetectedAlertMessage` | Security Alert message, only works on ios |
 | `screenCaptureDetectedAlertActionTitle` | Security Alert actionTitle, only works on ios. |
 
-## SecureKeyboardController
+### SecureKeyboardController
 
 | Function | Description |
 |---|---|
@@ -139,7 +149,7 @@ class _WithSecureKeyboardExampleState extends State<WithSecureKeyboardExample> {
 | `show` | Show a secure keyboard. |
 | `hide` | Hide a secure keyboard. |
 
-## SecureKeyboardController.show()
+### SecureKeyboardController.show()
 
 | Parameter | Description |
 |---|---|
