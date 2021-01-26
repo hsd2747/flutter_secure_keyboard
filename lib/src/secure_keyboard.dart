@@ -274,7 +274,11 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   @override
   void dispose() {
     _methodChannel.invokeMethod('secureModeOff');
-    this._charCodes.clear();
+    for (int i = 0; i < this._charCodes.length; i++) {
+      this._charCodes[i] = 0x20;
+    }
+    this._charCodes.fillRange(0, this._charCodes.length, 0x20);
+    this._charCodes = null;
     super.dispose();
   }
 
