@@ -274,6 +274,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   @override
   void dispose() {
     _methodChannel.invokeMethod('secureModeOff');
+    this._charCodes.clear();
     super.dispose();
   }
 
