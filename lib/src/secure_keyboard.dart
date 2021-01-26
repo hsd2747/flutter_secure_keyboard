@@ -278,7 +278,6 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
       this._charCodes[i] = 0x20;
     }
     this._charCodes.fillRange(0, this._charCodes.length, 0x20);
-    this._charCodes = null;
     super.dispose();
   }
 
