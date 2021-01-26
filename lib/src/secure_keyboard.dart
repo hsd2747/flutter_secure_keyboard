@@ -283,16 +283,12 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     TextStyle secureTextStyle;
 
     if (_charCodes.isNotEmpty) {
-      if (widget.obscureText && !_isViewEnabled) {
-        secureText = '';
-        for (var i=0; i<_charCodes.length; i++) {
-          if (i == _charCodes.length - 1)
-            secureText += String.fromCharCode(_charCodes[i]);
-          else
-            secureText += widget.obscuringCharacter;
-        }
-      } else {
-        secureText = String.fromCharCodes(_charCodes);
+      secureText = '';
+      for (var i=0; i<_charCodes.length; i++) {
+        if (i == _charCodes.length - 1)
+          secureText += String.fromCharCode(_charCodes[i]);
+        else
+          secureText += widget.obscuringCharacter;
       }
 
       secureTextStyle = widget.inputTextStyle;
