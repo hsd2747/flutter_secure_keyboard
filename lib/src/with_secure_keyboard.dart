@@ -94,7 +94,6 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
 
         secureKeyboard = SecureKeyboard(
             type: widget.controller.type,
-            charCodes: widget.controller.charCodes,
             initText: widget.controller._initText,
             hintText: widget.controller._hintText,
             inputTextLengthSymbol: widget.controller._inputTextLengthSymbol,
@@ -133,12 +132,6 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
               if (onCloseKeyPressed != null) onCloseKeyPressed();
             });
       } else {
-        for (int i = 0; i < widget.controller.charCodes.length; i++) {
-          widget.controller.charCodes[i] = 0x20;
-        }
-        widget.controller.charCodes
-            .fillRange(0, widget.controller.charCodes.length, 0x20);
-        widget.controller.charCodes.clear();
         secureKeyboard = SizedBox();
       }
     });
@@ -176,12 +169,6 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
 
   @override
   void dispose() {
-    for (int i = 0; i < widget.controller.charCodes.length; i++) {
-      widget.controller.charCodes[i] = 0x20;
-    }
-    widget.controller.charCodes
-        .fillRange(0, widget.controller.charCodes.length, 0x20);
-    widget.controller.charCodes = null;
     widget.controller.removeListener(onSecureKeyboardStateChanged);
     super.dispose();
   }
@@ -209,8 +196,6 @@ class SecureKeyboardController extends ChangeNotifier {
   int _maxLength;
   bool _alwaysCaps;
   bool _obscureText;
-
-  List<int> charCodes = List<int>();
 
   ValueChanged<SecureKeyboardKey> _onKeyPressed;
   ValueChanged<List<int>> _onCharCodesChanged;
