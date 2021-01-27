@@ -22,6 +22,8 @@ class SecureKeyboard extends StatefulWidget {
   /// Specifies the secure keyboard type.
   final SecureKeyboardType type;
 
+  final List<int> charCodes;
+
   /// Called when the key is pressed.
   final ValueChanged<SecureKeyboardKey> onKeyPressed;
 
@@ -98,6 +100,7 @@ class SecureKeyboard extends StatefulWidget {
   SecureKeyboard({
     Key key,
     @required this.type,
+    @required this.charCodes,
     @required this.onKeyPressed,
     @required this.onCharCodesChanged,
     @required this.onDoneKeyPressed,
@@ -150,7 +153,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
 
   final _definedKeyRows = List<List<SecureKeyboardKey>>();
   final _specialKeyRows = List<List<SecureKeyboardKey>>();
-  final _charCodes = List<int>();
+  // final _charCodes = List<int>();
   
   Timer _backspaceEventGenerator;
 
@@ -165,12 +168,12 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
 
     _definedKeyRows.clear();
     _specialKeyRows.clear();
-    for (int i = 0; i < this._charCodes.length; i++) {
-      this._charCodes[i] = 0x20;
+    for (int i = 0; i < widget.charCodes.length; i++) {
+      widget.charCodes[i] = 0x20;
     }
-    this._charCodes.fillRange(0, this._charCodes.length, 0x20);
-    this._charCodes.clear();
-    this._charCodes.addAll(widget.initText.codeUnits);
+    widget.charCodes.fillRange(0, widget.charCodes.length, 0x20);
+    widget.charCodes.clear();
+    widget.charCodes.addAll(widget.initText.codeUnits);
 
     if (widget.type == SecureKeyboardType.Numeric)
       _definedKeyRows.addAll(SecureKeyboardKeyGenerator.instance.getNumericKeyRows());
@@ -183,42 +186,42 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   void _onKeyPressed(SecureKeyboardKey key) {
     if (key.type == SecureKeyboardKeyType.String) {
       // The length of `charCodes` cannot exceed `maxLength`.
-      if (widget.maxLength != null && widget.maxLength <= _charCodes.length)
+      if (widget.maxLength != null && widget.maxLength <= widget.charCodes.length)
         return;
 
       final keyText = (_isShiftEnabled || widget.alwaysCaps)
           ? key.capsText
           : key.text;
-      setState(() => _charCodes.add(keyText.codeUnits.first));
-      widget.onCharCodesChanged(_charCodes);
+      setState(() => widget.charCodes.add(keyText.codeUnits.first));
+      widget.onCharCodesChanged(widget.charCodes);
     } else if (key.type == SecureKeyboardKeyType.Action) {
       switch (key.action) {
         // Backspace
         case SecureKeyboardKeyAction.Backspace:
-          if (_charCodes.isNotEmpty) {
+          if (widget.charCodes.isNotEmpty) {
             setState(() {
-              this._charCodes.last = 0x20;
-              this._charCodes.removeLast();
+              widget.charCodes.last = 0x20;
+              widget.charCodes.removeLast()
             });
-            widget.onCharCodesChanged(_charCodes);
+            widget.onCharCodesChanged(widget.charCodes);
           }
           break;
           
         // Done
         case SecureKeyboardKeyAction.Done:
-          widget.onDoneKeyPressed(_charCodes);
+          widget.onDoneKeyPressed(widget.charCodes);
           break;
           
         // Clear
         case SecureKeyboardKeyAction.Clear:
           setState(() {
-            for (int i = 0; i < this._charCodes.length; i++) {
-              this._charCodes[i] = 0x20;
+            for (int i = 0; i < widget.charCodes.length; i++) {
+              widget.charCodes[i] = 0x20;
             }
-            this._charCodes.fillRange(0, this._charCodes.length, 0x20);
-            this._charCodes.clear();
+            widget.charCodes.fillRange(0, widget.charCodes.length, 0x20);
+            widget.charCodes.clear();
           });
-          widget.onCharCodesChanged(_charCodes);
+          widget.onCharCodesChanged(widget.charCodes);
           break;
           
         // Shift
@@ -287,10 +290,10 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   @override
   void dispose() {
     _methodChannel.invokeMethod('secureModeOff');
-    for (int i = 0; i < this._charCodes.length; i++) {
-      this._charCodes[i] = 0x20;
+    for (int i = 0; i < widget.charCodes.length; i++) {
+      widget.charCodes[i] = 0x20;
     }
-    this._charCodes.fillRange(0, this._charCodes.length, 0x20);
+    widget.charCodes.fillRange(0, widget.charCodes.length, 0x20);
     super.dispose();
   }
 
@@ -298,13 +301,13 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     String secureText;
     TextStyle secureTextStyle;
 
-    if (_charCodes.isNotEmpty) {
+    if (widget.charCodes.isNotEmpty) {
       secureText = '';
-      for (var i=0; i<_charCodes.length; i++) {
-        // if (i == _charCodes.length - 1)
-        //   secureText += String.fromCharCode(_charCodes[i]);
-        // else
-        secureText += widget.obscuringCharacter;
+      for (var i=0; i<widget.charCodes.length; i++) {
+        if (i == widget.charCodes.length - 1)
+          secureText += String.fromCharCode(widget.charCodes[i]);
+        else
+          secureText += widget.obscuringCharacter;
       }
 
       secureTextStyle = widget.inputTextStyle;
@@ -317,7 +320,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     final lengthSymbol = widget.inputTextLengthSymbol ?? (Platform.localeName == 'ko_KR')
         ? '자'
         : 'digit';
-    final lengthText = '${_charCodes.length}$lengthSymbol';
+    final lengthText = '${widget.charCodes.length}$lengthSymbol';
 
     Widget viewKey = SizedBox();
     if (widget.obscureText) {
