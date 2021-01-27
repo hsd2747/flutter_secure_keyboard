@@ -161,7 +161,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
       backgroundColor: Colors.transparent,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [Expanded(child: widget.child), secureKeyboard],
       ),
     );
