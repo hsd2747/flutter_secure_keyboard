@@ -165,8 +165,12 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
 
     _definedKeyRows.clear();
     _specialKeyRows.clear();
-    _charCodes.clear();
-    _charCodes.addAll(widget.initText.codeUnits);
+    for (int i = 0; i < this._charCodes.length; i++) {
+      this._charCodes[i] = 0x20;
+    }
+    this._charCodes.fillRange(0, this._charCodes.length, 0x20);
+    this._charCodes.clear();
+    this._charCodes.addAll(widget.initText.codeUnits);
 
     if (widget.type == SecureKeyboardType.Numeric)
       _definedKeyRows.addAll(SecureKeyboardKeyGenerator.instance.getNumericKeyRows());
@@ -192,7 +196,10 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         // Backspace
         case SecureKeyboardKeyAction.Backspace:
           if (_charCodes.isNotEmpty) {
-            setState(() => _charCodes.removeLast());
+            setState(() {
+              this._charCodes.last = 0x20;
+              this._charCodes.removeLast()
+            });
             widget.onCharCodesChanged(_charCodes);
           }
           break;
@@ -204,7 +211,13 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
           
         // Clear
         case SecureKeyboardKeyAction.Clear:
-          setState(() => _charCodes.clear());
+          setState(() {
+            for (int i = 0; i < this._charCodes.length; i++) {
+              this._charCodes[i] = 0x20;
+            }
+            this._charCodes.fillRange(0, this._charCodes.length, 0x20);
+            this._charCodes.clear();
+          });
           widget.onCharCodesChanged(_charCodes);
           break;
           
