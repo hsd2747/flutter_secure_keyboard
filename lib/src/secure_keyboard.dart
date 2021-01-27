@@ -301,10 +301,10 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     if (_charCodes.isNotEmpty) {
       secureText = '';
       for (var i=0; i<_charCodes.length; i++) {
-        if (i == _charCodes.length - 1)
-          secureText += String.fromCharCode(_charCodes[i]);
-        else
-          secureText += widget.obscuringCharacter;
+        // if (i == _charCodes.length - 1)
+        //   secureText += String.fromCharCode(_charCodes[i]);
+        // else
+        secureText += widget.obscuringCharacter;
       }
 
       secureTextStyle = widget.inputTextStyle;
