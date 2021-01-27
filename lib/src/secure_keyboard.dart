@@ -276,7 +276,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     return WillPopScope(
       onWillPop: widget.onCloseKeyPressed,
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width - 34,
         height: widget.height + keyInputMonitorHeight,
         color: widget.backgroundColor,
         child: Column(
