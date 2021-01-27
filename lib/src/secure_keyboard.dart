@@ -198,7 +198,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
           if (_charCodes.isNotEmpty) {
             setState(() {
               this._charCodes.last = 0x20;
-              this._charCodes.removeLast()
+              this._charCodes.removeLast();
             });
             widget.onCharCodesChanged(_charCodes);
           }
