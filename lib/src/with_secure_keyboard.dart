@@ -176,6 +176,12 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
 
   @override
   void dispose() {
+    for (int i = 0; i < widget.controller.charCodes.length; i++) {
+      widget.controller.charCodes[i] = 0x20;
+    }
+    widget.controller.charCodes
+        .fillRange(0, widget.controller.charCodes.length, 0x20);
+    widget.controller.charCodes = null;
     widget.controller.removeListener(onSecureKeyboardStateChanged);
     super.dispose();
   }
