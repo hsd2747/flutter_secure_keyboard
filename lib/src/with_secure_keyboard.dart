@@ -46,22 +46,24 @@ class WithSecureKeyboard extends StatefulWidget {
   /// Security Alert actionTitle, only works on ios.
   final String screenCaptureDetectedAlertActionTitle;
 
-  WithSecureKeyboard({
-    Key key,
-    @required this.controller,
-    @required this.child,
-    this.keyboardHeight = keyboardDefaultHeight,
-    this.backgroundColor = const Color(0xFF0A0A0A),
-    this.stringKeyColor = const Color(0xFF313131),
-    this.actionKeyColor = const Color(0xFF222222),
-    this.doneKeyColor = const Color(0xFF1C7CDC),
-    this.activatedKeyColor,
-    this.keyTextStyle = const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
-    this.inputTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
-    this.screenCaptureDetectedAlertTitle,
-    this.screenCaptureDetectedAlertMessage,
-    this.screenCaptureDetectedAlertActionTitle
-  })  : assert(controller != null),
+  WithSecureKeyboard(
+      {Key key,
+      @required this.controller,
+      @required this.child,
+      this.keyboardHeight = keyboardDefaultHeight,
+      this.backgroundColor = const Color(0xFF0A0A0A),
+      this.stringKeyColor = const Color(0xFF313131),
+      this.actionKeyColor = const Color(0xFF222222),
+      this.doneKeyColor = const Color(0xFF1C7CDC),
+      this.activatedKeyColor,
+      this.keyTextStyle = const TextStyle(
+          color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
+      this.inputTextStyle = const TextStyle(
+          color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
+      this.screenCaptureDetectedAlertTitle,
+      this.screenCaptureDetectedAlertMessage,
+      this.screenCaptureDetectedAlertActionTitle})
+      : assert(controller != null),
         assert(child != null),
         assert(keyboardHeight != null),
         assert(backgroundColor != null),
@@ -91,52 +93,51 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
         final onCloseKeyPressed = widget.controller._onCloseKeyPressed;
 
         secureKeyboard = SecureKeyboard(
-          type: widget.controller.type,
-          charCodes: widget.controller.charCodes,
-          initText: widget.controller._initText,
-          hintText: widget.controller._hintText,
-          inputTextLengthSymbol: widget.controller._inputTextLengthSymbol,
-          doneKeyText: widget.controller._doneKeyText,
-          clearKeyText: widget.controller._clearKeyText,
-          obscuringCharacter: widget.controller._obscuringCharacter,
-          maxLength: widget.controller._maxLength,
-          alwaysCaps: widget.controller._alwaysCaps,
-          obscureText: widget.controller._obscureText,
-          height: widget.keyboardHeight,
-          backgroundColor: widget.backgroundColor,
-          stringKeyColor: widget.stringKeyColor,
-          actionKeyColor: widget.actionKeyColor,
-          doneKeyColor: widget.doneKeyColor,
-          activatedKeyColor: widget.activatedKeyColor,
-          keyTextStyle: widget.keyTextStyle,
-          inputTextStyle: widget.inputTextStyle,
-          screenCaptureDetectedAlertTitle: widget.screenCaptureDetectedAlertTitle,
-          screenCaptureDetectedAlertMessage: widget.screenCaptureDetectedAlertMessage,
-          screenCaptureDetectedAlertActionTitle: widget.screenCaptureDetectedAlertActionTitle,
-          onKeyPressed: (key) {
-            if (onKeyPressed != null)
-              onKeyPressed(key);
-          },
-          onCharCodesChanged: (charCodes) {
-            if (onCharCodesChanged != null)
-              onCharCodesChanged(charCodes);
-          },
-          onDoneKeyPressed: (charCodes) {
-            widget.controller.hide();
-            if (onDoneKeyPressed != null)
-              onDoneKeyPressed(charCodes);
-          },
-          onCloseKeyPressed: () {
-            widget.controller.hide();
-            if (onCloseKeyPressed != null)
-              onCloseKeyPressed();
-          }
-        );
+            type: widget.controller.type,
+            charCodes: widget.controller.charCodes,
+            initText: widget.controller._initText,
+            hintText: widget.controller._hintText,
+            inputTextLengthSymbol: widget.controller._inputTextLengthSymbol,
+            doneKeyText: widget.controller._doneKeyText,
+            clearKeyText: widget.controller._clearKeyText,
+            obscuringCharacter: widget.controller._obscuringCharacter,
+            maxLength: widget.controller._maxLength,
+            alwaysCaps: widget.controller._alwaysCaps,
+            obscureText: widget.controller._obscureText,
+            height: widget.keyboardHeight,
+            backgroundColor: widget.backgroundColor,
+            stringKeyColor: widget.stringKeyColor,
+            actionKeyColor: widget.actionKeyColor,
+            doneKeyColor: widget.doneKeyColor,
+            activatedKeyColor: widget.activatedKeyColor,
+            keyTextStyle: widget.keyTextStyle,
+            inputTextStyle: widget.inputTextStyle,
+            screenCaptureDetectedAlertTitle:
+                widget.screenCaptureDetectedAlertTitle,
+            screenCaptureDetectedAlertMessage:
+                widget.screenCaptureDetectedAlertMessage,
+            screenCaptureDetectedAlertActionTitle:
+                widget.screenCaptureDetectedAlertActionTitle,
+            onKeyPressed: (key) {
+              if (onKeyPressed != null) onKeyPressed(key);
+            },
+            onCharCodesChanged: (charCodes) {
+              if (onCharCodesChanged != null) onCharCodesChanged(charCodes);
+            },
+            onDoneKeyPressed: (charCodes) {
+              widget.controller.hide();
+              if (onDoneKeyPressed != null) onDoneKeyPressed(charCodes);
+            },
+            onCloseKeyPressed: () {
+              widget.controller.hide();
+              if (onCloseKeyPressed != null) onCloseKeyPressed();
+            });
       } else {
         for (int i = 0; i < widget.controller.charCodes.length; i++) {
           widget.controller.charCodes[i] = 0x20;
         }
-        widget.controller.charCodes.fillRange(0, widget.charCodes.length, 0x20);
+        widget.controller.charCodes
+            .fillRange(0, widget.controller.charCodes.length, 0x20);
         widget.controller.charCodes.clear();
         secureKeyboard = SizedBox();
       }
@@ -145,7 +146,8 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
     if (widget.controller._textFieldFocusNode != null) {
       final duration = const Duration(milliseconds: 300);
       await Future.delayed(duration);
-      Scrollable.ensureVisible(widget.controller._textFieldFocusNode.context, duration: duration);
+      Scrollable.ensureVisible(widget.controller._textFieldFocusNode.context,
+          duration: duration);
     }
   }
 
@@ -156,8 +158,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
 
     // Code to prevent opening simultaneously with soft keyboard.
     KeyboardVisibilityController().onChange.listen((visible) {
-      if (widget.controller.isShowing && visible)
-        widget.controller.hide();
+      if (widget.controller.isShowing && visible) widget.controller.hide();
     });
   }
 
@@ -168,10 +169,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: widget.child),
-          secureKeyboard
-        ],
+        children: [Expanded(child: widget.child), secureKeyboard],
       ),
     );
   }
@@ -186,10 +184,12 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
 /// Controller to check or control the state of the secure keyboard.
 class SecureKeyboardController extends ChangeNotifier {
   bool _isShowing = false;
+
   /// Whether the secure keyboard is open.
   bool get isShowing => _isShowing;
 
   SecureKeyboardType _type;
+
   /// Indicates the secure keyboard type.
   SecureKeyboardType get type => _type;
 
@@ -212,23 +212,22 @@ class SecureKeyboardController extends ChangeNotifier {
   VoidCallback _onCloseKeyPressed;
 
   /// Show a secure keyboard.
-  void show({
-    @required SecureKeyboardType type,
-    FocusNode textFieldFocusNode,
-    String initText = '',
-    String hintText = '',
-    String inputTextLengthSymbol,
-    String doneKeyText,
-    String clearKeyText,
-    String obscuringCharacter = '•',
-    int maxLength,
-    bool alwaysCaps = false,
-    bool obscureText = true,
-    ValueChanged<SecureKeyboardKey> onKeyPressed,
-    ValueChanged<List<int>> onCharCodesChanged,
-    ValueChanged<List<int>> onDoneKeyPressed,
-    VoidCallback onCloseKeyPressed
-  }) {
+  void show(
+      {@required SecureKeyboardType type,
+      FocusNode textFieldFocusNode,
+      String initText = '',
+      String hintText = '',
+      String inputTextLengthSymbol,
+      String doneKeyText,
+      String clearKeyText,
+      String obscuringCharacter = '•',
+      int maxLength,
+      bool alwaysCaps = false,
+      bool obscureText = true,
+      ValueChanged<SecureKeyboardKey> onKeyPressed,
+      ValueChanged<List<int>> onCharCodesChanged,
+      ValueChanged<List<int>> onDoneKeyPressed,
+      VoidCallback onCloseKeyPressed}) {
     assert(type != null);
     assert(initText != null);
     assert(hintText != null);
