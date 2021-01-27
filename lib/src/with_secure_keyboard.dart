@@ -46,24 +46,27 @@ class WithSecureKeyboard extends StatefulWidget {
   /// Security Alert actionTitle, only works on ios.
   final String screenCaptureDetectedAlertActionTitle;
 
-  WithSecureKeyboard(
-      {Key key,
-      @required this.controller,
-      @required this.child,
-      this.keyboardHeight = keyboardDefaultHeight,
-      this.backgroundColor = const Color(0xFF0A0A0A),
-      this.stringKeyColor = const Color(0xFF313131),
-      this.actionKeyColor = const Color(0xFF222222),
-      this.doneKeyColor = const Color(0xFF1C7CDC),
-      this.activatedKeyColor,
-      this.keyTextStyle = const TextStyle(
-          color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
-      this.inputTextStyle = const TextStyle(
-          color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
-      this.screenCaptureDetectedAlertTitle,
-      this.screenCaptureDetectedAlertMessage,
-      this.screenCaptureDetectedAlertActionTitle})
-      : assert(controller != null),
+  final bool autoScroll;
+
+  WithSecureKeyboard({
+    Key key,
+    @required this.controller,
+    @required this.child,
+    this.keyboardHeight = keyboardDefaultHeight,
+    this.backgroundColor = const Color(0xFF0A0A0A),
+    this.stringKeyColor = const Color(0xFF313131),
+    this.actionKeyColor = const Color(0xFF222222),
+    this.doneKeyColor = const Color(0xFF1C7CDC),
+    this.activatedKeyColor,
+    this.keyTextStyle = const TextStyle(
+        color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
+    this.inputTextStyle = const TextStyle(
+        color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
+    this.screenCaptureDetectedAlertTitle,
+    this.screenCaptureDetectedAlertMessage,
+    this.screenCaptureDetectedAlertActionTitle,
+    this.autoScroll = false,
+  })  : assert(controller != null),
         assert(child != null),
         assert(keyboardHeight != null),
         assert(backgroundColor != null),
@@ -136,7 +139,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
       }
     });
 
-    if (widget.controller._textFieldFocusNode != null) {
+    if (widget.controller._textFieldFocusNode != null && widget.autoScroll) {
       final duration = const Duration(milliseconds: 300);
       await Future.delayed(duration);
       Scrollable.ensureVisible(widget.controller._textFieldFocusNode.context,
