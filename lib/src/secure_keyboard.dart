@@ -281,7 +281,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         color: widget.backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildKeyInputMonitor(),
             ..._buildKeyboardKey(keyRows),
@@ -336,14 +336,18 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-              borderRadius: BorderRadius.circular(24.0),
-              onTap: () {},
-              child: GestureDetector(
-                  onTapDown: (_) => setState(() => _isViewEnabled = true),
-                  onTapUp: (_) => setState(() => _isViewEnabled = false),
-                  onPanEnd: (_) => setState(() => _isViewEnabled = false),
-                  child: Icon(Icons.remove_red_eye,
-                      color: widget.keyTextStyle.color))),
+            borderRadius: BorderRadius.circular(24.0),
+            onTap: () {},
+            child: GestureDetector(
+              onTapDown: (_) => setState(() => _isViewEnabled = true),
+              onTapUp: (_) => setState(() => _isViewEnabled = false),
+              onPanEnd: (_) => setState(() => _isViewEnabled = false),
+              child: Icon(
+                Icons.remove_red_eye,
+                color: widget.keyTextStyle.color,
+              ),
+            ),
+          ),
         ),
       );
     }
@@ -353,15 +357,23 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
       child: Row(
         children: [
           Expanded(
-              child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(secureText,
-                      style: secureTextStyle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis))),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                secureText,
+                style: secureTextStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(lengthText, style: widget.keyTextStyle)),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+              lengthText,
+              style: widget.keyTextStyle,
+            ),
+          ),
           viewKey,
           Container(
             width: keyInputMonitorHeight / 1.4,
@@ -370,9 +382,13 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                  borderRadius: BorderRadius.circular(24.0),
-                  onTap: widget.onCloseKeyPressed,
-                  child: Icon(Icons.close, color: widget.keyTextStyle.color)),
+                borderRadius: BorderRadius.circular(24.0),
+                onTap: widget.onCloseKeyPressed,
+                child: Icon(
+                  Icons.close,
+                  color: widget.keyTextStyle.color,
+                ),
+              ),
             ),
           )
         ],
@@ -385,9 +401,11 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
       return Material(
         color: Colors.transparent,
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: List.generate(keyRows[rowNum].length, (int keyNum) {
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: List.generate(
+            keyRows[rowNum].length,
+            (int keyNum) {
               final key = keyRows[rowNum][keyNum];
 
               switch (key.type) {
@@ -398,7 +416,9 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
                 default:
                   throw Exception('Unknown key type.');
               }
-            })),
+            },
+          ),
+        ),
       );
     });
   }
@@ -415,8 +435,14 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
           borderRadius: BorderRadius.circular(4.0),
           color: widget.stringKeyColor,
           child: InkWell(
-              onTap: () => _onKeyPressed(key),
-              child: Center(child: Text(keyText, style: widget.keyTextStyle))),
+            onTap: () => _onKeyPressed(key),
+            child: Center(
+              child: Text(
+                keyText,
+                style: widget.keyTextStyle,
+              ),
+            ),
+          ),
         ),
       ),
     );
