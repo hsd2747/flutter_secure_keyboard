@@ -270,8 +270,8 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   @override
   Widget build(BuildContext context) {
     final keyRows = _isSpecialCharsEnabled ? _specialKeyRows : _definedKeyRows;
-    final keyboardKey = _buildKeyboardKey(keyRows);
-    keyboardKey.insert(0, _buildKeyInputMonitor());
+    // final keyboardKey = _buildKeyboardKey(keyRows);
+    // keyboardKey.insert(0, _buildKeyInputMonitor());
 
     return WillPopScope(
       onWillPop: widget.onCloseKeyPressed,
@@ -280,9 +280,13 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         height: widget.height + keyInputMonitorHeight,
         color: widget.backgroundColor,
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: keyboardKey),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildKeyInputMonitor(),
+            ..._buildKeyboardKey(keyRows),
+          ],
+        ),
       ),
     );
   }
