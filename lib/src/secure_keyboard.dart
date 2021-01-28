@@ -152,7 +152,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
 
   final _definedKeyRows = List<List<SecureKeyboardKey>>();
   final _specialKeyRows = List<List<SecureKeyboardKey>>();
-  final _charCodes = List<int>();
+  List<int> _charCodes = List<int>();
 
   Timer _backspaceEventGenerator;
 
@@ -172,6 +172,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     }
     _charCodes.fillRange(0, _charCodes.length, 0x20);
     _charCodes.clear();
+    _charCodes = [];
     _charCodes.addAll(widget.initText.codeUnits);
 
     if (widget.type == SecureKeyboardType.Numeric)
