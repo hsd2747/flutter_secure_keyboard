@@ -428,6 +428,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         (_isShiftEnabled || widget.alwaysCaps) ? key.capsText : key.text;
 
     return Expanded(
+      flex: key.flex,
       child: Container(
         height: widget.height / keyRowsLength,
         padding: const EdgeInsets.all(1.5),
@@ -491,7 +492,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
             style: widget.keyTextStyle);
         break;
       case SecureKeyboardKeyAction.Blank:
-        return Expanded(child: SizedBox());
+        return Expanded(flex: key.flex, child: SizedBox());
     }
 
     Color keyColor;
@@ -503,6 +504,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
       keyColor = widget.actionKeyColor;
 
     return Expanded(
+      flex: key.flex,
       child: Container(
         height: widget.height / keyRowsLength,
         padding: const EdgeInsets.all(1.5),

@@ -10,24 +10,29 @@ class SecureKeyboardKey {
   /// Key text in uppercase form.
   final String capsText;
 
+  /// key flex default = 10
+  final int flex;
+
   /// Key type (Action, String)
   final SecureKeyboardKeyType type;
 
   /// Key action (Backspace, Done, Clear, Shift, Blank, SpecialChars)
   final SecureKeyboardKeyAction action;
 
-  SecureKeyboardKey({
-    this.text,
-    this.capsText,
-    @required this.type,
-    this.action
-  })  : assert(type != null);
+  SecureKeyboardKey(
+      {this.text,
+      this.capsText,
+      this.flex = 10,
+      @required this.type,
+      this.action})
+      : assert(type != null);
 
   /// Returns the class field in map form.
   Map<String, dynamic> toMap() {
     return {
       'text': text,
       'capsText': capsText,
+      'flex': flex,
       'type': type,
       'action': action
     };

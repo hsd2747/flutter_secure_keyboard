@@ -20,7 +20,7 @@ class SecureKeyboardKeyGenerator {
 
   /// Maximum length of a row of alphanumeric key.
   /// If not enough, fill in the blank action key.
-  final int _alphanumericKeyRowMaxLength = 11;
+  final int _alphanumericKeyRowMaxLength = 10;
   final List<List<String>> _alphanumericKeyRows = [
     const ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
     const ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
@@ -62,9 +62,10 @@ class SecureKeyboardKeyGenerator {
           break;
         default:
           rowKeys = _getStringKeyRow(_numericKeyRows, rowNum);
-          emptyLength = _numericKeyRowMaxLength - _numericKeyRows[rowNum].length;
+          emptyLength =
+              _numericKeyRowMaxLength - _numericKeyRows[rowNum].length;
 
-          for (var i=0; i<emptyLength; i++) {
+          for (var i = 0; i < emptyLength; i++) {
             randomIndex = random.nextInt(_numericKeyRowMaxLength);
 
             if (randomIndex == _numericKeyRowMaxLength - 1)
@@ -95,10 +96,10 @@ class SecureKeyboardKeyGenerator {
           rowKeys.add(_shiftActionKey());
 
           rowKeys.addAll(_getStringKeyRow(_alphanumericKeyRows, rowNum));
-
-          emptyLength = _alphanumericKeyRows[rowNum].length;
-          randomIndex = random.nextInt(emptyLength) + 1;
-          rowKeys.insert(randomIndex, _blankActionKey());
+          // emptyLength = _alphanumericKeyRows[rowNum].length;
+          // randomIndex = random.nextInt(emptyLength) + 1;
+          // rowKeys.insert(randomIndex, _blankActionKey());
+          // rowKeys.add(_blankActionKey());
 
           // Backspace
           rowKeys.add(_backspaceActionKey());
@@ -115,19 +116,23 @@ class SecureKeyboardKeyGenerator {
           break;
         default:
           rowKeys = _getStringKeyRow(_alphanumericKeyRows, rowNum);
-          emptyLength = _alphanumericKeyRowMaxLength - _alphanumericKeyRows[rowNum].length;
+          emptyLength = _alphanumericKeyRowMaxLength -
+              _alphanumericKeyRows[rowNum].length;
 
-          for (var i=0; i<emptyLength; i++) {
-            randomIndex = random.nextInt(_alphanumericKeyRowMaxLength);
-
-            if (randomIndex == _alphanumericKeyRowMaxLength - 1)
-              rowKeys.add(_blankActionKey());
-            else
-              rowKeys.insert(randomIndex, _blankActionKey());
+          if (rowNum == 2) {
+            rowKeys.insert(0, _blankActionKey(flex: 5));
+            rowKeys.add(_blankActionKey(flex: 5));
           }
+        // for (var i = 0; i < emptyLength; i++) {
+        //   // randomIndex = random.nextInt(_alphanumericKeyRowMaxLength);
 
-          if (rowNum == 0)
-            rowKeys.shuffle();
+        //   // if (randomIndex == _alphanumericKeyRowMaxLength - 1)
+        //   rowKeys.add(_blankActionKey());
+        //   // else
+        //   //   rowKeys.insert(randomIndex, _blankActionKey());
+        // }
+
+        // if (rowNum == 0) rowKeys.shuffle();
       }
 
       return rowKeys;
@@ -150,9 +155,9 @@ class SecureKeyboardKeyGenerator {
 
           rowKeys.addAll(_getStringKeyRow(_specialCharsKeyRows, rowNum));
 
-          emptyLength = _specialCharsKeyRows[rowNum].length;
-          randomIndex = random.nextInt(emptyLength) + 1;
-          rowKeys.insert(randomIndex, _blankActionKey());
+          // emptyLength = _specialCharsKeyRows[rowNum].length;
+          // randomIndex = random.nextInt(emptyLength) + 1;
+          // rowKeys.insert(randomIndex, _blankActionKey());
 
           // Backspace
           rowKeys.add(_backspaceActionKey());
@@ -169,16 +174,22 @@ class SecureKeyboardKeyGenerator {
           break;
         default:
           rowKeys = _getStringKeyRow(_specialCharsKeyRows, rowNum);
-          emptyLength = _specialCharsKeyRowMaxLength - _specialCharsKeyRows[rowNum].length;
+          emptyLength = _specialCharsKeyRowMaxLength -
+              _specialCharsKeyRows[rowNum].length;
 
-          for (var i=0; i<emptyLength; i++) {
-            randomIndex = random.nextInt(_specialCharsKeyRowMaxLength);
-
-            if (randomIndex == _specialCharsKeyRowMaxLength - 1)
-              rowKeys.add(_blankActionKey());
-            else
-              rowKeys.insert(randomIndex, _blankActionKey());
+          if (rowNum == 2) {
+            rowKeys.insert(0, _blankActionKey(flex: 5));
+            rowKeys.add(_blankActionKey(flex: 5));
           }
+
+        // for (var i = 0; i < emptyLength; i++) {
+        //   randomIndex = random.nextInt(_specialCharsKeyRowMaxLength);
+
+        //   if (randomIndex == _specialCharsKeyRowMaxLength - 1)
+        //     rowKeys.add(_blankActionKey());
+        //   else
+        //     rowKeys.insert(randomIndex, _blankActionKey());
+        // }
       }
 
       return rowKeys;
@@ -186,15 +197,15 @@ class SecureKeyboardKeyGenerator {
   }
 
   /// Returns the string type key row.
-  List<SecureKeyboardKey> _getStringKeyRow(List<List<String>> keyRows, int rowNum) {
+  List<SecureKeyboardKey> _getStringKeyRow(
+      List<List<String>> keyRows, int rowNum) {
     return List.generate(keyRows[rowNum].length, (int keyNum) {
       String key = keyRows[rowNum][keyNum];
 
       return SecureKeyboardKey(
-        text: key,
-        capsText: key.toUpperCase(),
-        type: SecureKeyboardKeyType.String
-      );
+          text: key,
+          capsText: key.toUpperCase(),
+          type: SecureKeyboardKeyType.String);
     });
   }
 
@@ -202,47 +213,49 @@ class SecureKeyboardKeyGenerator {
   SecureKeyboardKey _backspaceActionKey() {
     return SecureKeyboardKey(
       type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.Backspace
+      action: SecureKeyboardKeyAction.Backspace,
+      flex: 15,
     );
   }
 
   /// Returns the done action key.
   SecureKeyboardKey _doneActionKey() {
     return SecureKeyboardKey(
-      type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.Done
-    );
+        type: SecureKeyboardKeyType.Action,
+        action: SecureKeyboardKeyAction.Done);
   }
 
   /// Returns the clear action key.
   SecureKeyboardKey _clearActionKey() {
     return SecureKeyboardKey(
-      type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.Clear
-    );
+        type: SecureKeyboardKeyType.Action,
+        action: SecureKeyboardKeyAction.Clear);
   }
 
   /// Returns the shift action key.
   SecureKeyboardKey _shiftActionKey() {
     return SecureKeyboardKey(
       type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.Shift
+      action: SecureKeyboardKeyAction.Shift,
+      flex: 15,
     );
   }
 
   /// Returns the blank action key.
-  SecureKeyboardKey _blankActionKey() {
+  SecureKeyboardKey _blankActionKey({
+    int flex = 10,
+  }) {
     return SecureKeyboardKey(
       type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.Blank
+      action: SecureKeyboardKeyAction.Blank,
+      flex: flex,
     );
   }
 
   /// Returns the specialChars action key.
   SecureKeyboardKey _specialCharsActionKey() {
     return SecureKeyboardKey(
-      type: SecureKeyboardKeyType.Action,
-      action: SecureKeyboardKeyAction.SpecialChars
-    );
+        type: SecureKeyboardKeyType.Action,
+        action: SecureKeyboardKeyAction.SpecialChars);
   }
 }
