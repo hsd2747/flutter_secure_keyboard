@@ -29,7 +29,7 @@ class WithSecureKeyboard extends StatefulWidget {
 
   /// Set the color to display when activated with the shift action key.
   /// If the value is null, `doneKeyColor` is used.
-  final Color activatedKeyColor;
+  final Color? activatedKeyColor;
 
   /// Parameter to set keyboard key text style.
   final TextStyle keyTextStyle;
@@ -38,20 +38,20 @@ class WithSecureKeyboard extends StatefulWidget {
   final TextStyle inputTextStyle;
 
   /// Security Alert title, only works on ios.
-  final String screenCaptureDetectedAlertTitle;
+  final String? screenCaptureDetectedAlertTitle;
 
   /// Security Alert message, only works on ios.
-  final String screenCaptureDetectedAlertMessage;
+  final String? screenCaptureDetectedAlertMessage;
 
   /// Security Alert actionTitle, only works on ios.
-  final String screenCaptureDetectedAlertActionTitle;
+  final String? screenCaptureDetectedAlertActionTitle;
 
   final bool autoScroll;
 
   WithSecureKeyboard({
-    Key key,
-    @required this.controller,
-    @required this.child,
+    Key? key,
+    required this.controller,
+    required this.child,
     this.keyboardHeight = keyboardDefaultHeight,
     this.backgroundColor = const Color(0xFF0A0A0A),
     this.stringKeyColor = const Color(0xFF313131),
@@ -96,16 +96,16 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
         final onCloseKeyPressed = widget.controller._onCloseKeyPressed;
 
         secureKeyboard = SecureKeyboard(
-            type: widget.controller.type,
-            initText: widget.controller._initText,
-            hintText: widget.controller._hintText,
+            type: widget.controller.type!,
+            initText: widget.controller._initText!,
+            hintText: widget.controller._hintText!,
             inputTextLengthSymbol: widget.controller._inputTextLengthSymbol,
             doneKeyText: widget.controller._doneKeyText,
             clearKeyText: widget.controller._clearKeyText,
             obscuringCharacter: widget.controller._obscuringCharacter,
             maxLength: widget.controller._maxLength,
-            alwaysCaps: widget.controller._alwaysCaps,
-            obscureText: widget.controller._obscureText,
+            alwaysCaps: widget.controller._alwaysCaps!,
+            obscureText: widget.controller._obscureText!,
             height: widget.keyboardHeight,
             backgroundColor: widget.backgroundColor,
             stringKeyColor: widget.stringKeyColor,
@@ -142,7 +142,7 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
     if (widget.controller._textFieldFocusNode != null && widget.autoScroll) {
       final duration = const Duration(milliseconds: 300);
       await Future.delayed(duration);
-      Scrollable.ensureVisible(widget.controller._textFieldFocusNode.context,
+      Scrollable.ensureVisible(widget.controller._textFieldFocusNode!.context!,
           duration: duration);
     }
   }
@@ -184,44 +184,44 @@ class SecureKeyboardController extends ChangeNotifier {
   /// Whether the secure keyboard is open.
   bool get isShowing => _isShowing;
 
-  SecureKeyboardType _type;
+  SecureKeyboardType? _type;
 
   /// Indicates the secure keyboard type.
-  SecureKeyboardType get type => _type;
+  SecureKeyboardType? get type => _type;
 
-  FocusNode _textFieldFocusNode;
-  String _initText;
-  String _hintText;
-  String _inputTextLengthSymbol;
-  String _doneKeyText;
-  String _clearKeyText;
-  String _obscuringCharacter;
-  int _maxLength;
-  bool _alwaysCaps;
-  bool _obscureText;
+  FocusNode? _textFieldFocusNode;
+  String? _initText;
+  String? _hintText;
+  String? _inputTextLengthSymbol;
+  String? _doneKeyText;
+  String? _clearKeyText;
+  String? _obscuringCharacter;
+  int? _maxLength;
+  bool? _alwaysCaps;
+  bool? _obscureText;
 
-  ValueChanged<SecureKeyboardKey> _onKeyPressed;
-  ValueChanged<List<int>> _onCharCodesChanged;
-  ValueChanged<List<int>> _onDoneKeyPressed;
-  VoidCallback _onCloseKeyPressed;
+  ValueChanged<SecureKeyboardKey>? _onKeyPressed;
+  ValueChanged<List<int>>? _onCharCodesChanged;
+  ValueChanged<List<int>>? _onDoneKeyPressed;
+  VoidCallback? _onCloseKeyPressed;
 
   /// Show a secure keyboard.
   void show(
-      {@required SecureKeyboardType type,
-      FocusNode textFieldFocusNode,
+      {required SecureKeyboardType type,
+      FocusNode? textFieldFocusNode,
       String initText = '',
       String hintText = '',
-      String inputTextLengthSymbol,
-      String doneKeyText,
-      String clearKeyText,
+      String? inputTextLengthSymbol,
+      String? doneKeyText,
+      String? clearKeyText,
       String obscuringCharacter = '•',
-      int maxLength,
+      int? maxLength,
       bool alwaysCaps = false,
       bool obscureText = true,
-      ValueChanged<SecureKeyboardKey> onKeyPressed,
-      ValueChanged<List<int>> onCharCodesChanged,
-      ValueChanged<List<int>> onDoneKeyPressed,
-      VoidCallback onCloseKeyPressed}) {
+      ValueChanged<SecureKeyboardKey>? onKeyPressed,
+      ValueChanged<List<int>>? onCharCodesChanged,
+      ValueChanged<List<int>>? onDoneKeyPressed,
+      VoidCallback? onCloseKeyPressed}) {
     assert(type != null);
     assert(initText != null);
     assert(hintText != null);

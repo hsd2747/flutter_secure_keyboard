@@ -41,19 +41,19 @@ class SecureKeyboard extends StatefulWidget {
   final String hintText;
 
   /// Set the symbol to use when displaying the input text length.
-  final String inputTextLengthSymbol;
+  final String? inputTextLengthSymbol;
 
   /// Set the done key text.
-  final String doneKeyText;
+  final String? doneKeyText;
 
   /// Set the clear key text.
-  final String clearKeyText;
+  final String? clearKeyText;
 
   /// Set the secure character to hide the input text.
-  final String obscuringCharacter;
+  final String? obscuringCharacter;
 
   /// Set the maximum length of text that can be entered.
-  final int maxLength;
+  final int? maxLength;
 
   /// Whether to always display uppercase characters.
   final bool alwaysCaps;
@@ -78,7 +78,7 @@ class SecureKeyboard extends StatefulWidget {
 
   /// Set the color to display when activated with the shift action key.
   /// If the value is null, `doneKeyColor` is used.
-  final Color activatedKeyColor;
+  final Color? activatedKeyColor;
 
   /// Parameter to set keyboard key text style.
   final TextStyle keyTextStyle;
@@ -87,21 +87,21 @@ class SecureKeyboard extends StatefulWidget {
   final TextStyle inputTextStyle;
 
   /// Security Alert title, only works on ios.
-  final String screenCaptureDetectedAlertTitle;
+  final String? screenCaptureDetectedAlertTitle;
 
   /// Security Alert message, only works on ios.
-  final String screenCaptureDetectedAlertMessage;
+  final String? screenCaptureDetectedAlertMessage;
 
   /// Security Alert actionTitle, only works on ios.
-  final String screenCaptureDetectedAlertActionTitle;
+  final String? screenCaptureDetectedAlertActionTitle;
 
   SecureKeyboard(
-      {Key key,
-      @required this.type,
-      @required this.onKeyPressed,
-      @required this.onCharCodesChanged,
-      @required this.onDoneKeyPressed,
-      @required this.onCloseKeyPressed,
+      {Key? key,
+      required this.type,
+      required this.onKeyPressed,
+      required this.onCharCodesChanged,
+      required this.onDoneKeyPressed,
+      required this.onCloseKeyPressed,
       this.initText = '',
       this.hintText = '',
       this.inputTextLengthSymbol,
@@ -150,11 +150,15 @@ class SecureKeyboard extends StatefulWidget {
 class _SecureKeyboardState extends State<SecureKeyboard> {
   final _methodChannel = const MethodChannel('flutter_secure_keyboard');
 
-  final _definedKeyRows = List<List<SecureKeyboardKey>>();
-  final _specialKeyRows = List<List<SecureKeyboardKey>>();
-  final _charCodes = List<int>();
+  final _definedKeyRows = [
+    <SecureKeyboardKey>[]
+  ]; //List<List<SecureKeyboardKey>>();
+  final _specialKeyRows = [
+    <SecureKeyboardKey>[]
+  ]; //List<List<SecureKeyboardKey>>();
+  final _charCodes = <int>[]; //List<int>();
 
-  Timer _backspaceEventGenerator;
+  Timer? _backspaceEventGenerator;
 
   bool _isViewEnabled = false;
   bool _isShiftEnabled = false;
@@ -188,12 +192,12 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   void _onKeyPressed(SecureKeyboardKey key) {
     if (key.type == SecureKeyboardKeyType.String) {
       // The length of `charCodes` cannot exceed `maxLength`.
-      if (widget.maxLength != null && widget.maxLength <= _charCodes.length)
+      if (widget.maxLength != null && widget.maxLength! <= _charCodes.length)
         return;
 
       final keyText =
           (_isShiftEnabled || widget.alwaysCaps) ? key.capsText : key.text;
-      setState(() => _charCodes.add(keyText.codeUnits.first));
+      setState(() => _charCodes.add(keyText!.codeUnits.first));
       widget.onCharCodesChanged(_charCodes);
     } else if (key.type == SecureKeyboardKeyType.Action) {
       switch (key.action) {
@@ -274,7 +278,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     // keyboardKey.insert(0, _buildKeyInputMonitor());
 
     return WillPopScope(
-      onWillPop: widget.onCloseKeyPressed,
+      onWillPop: widget.onCloseKeyPressed as Future<bool> Function()?,
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: widget.height + keyInputMonitorHeight,
@@ -311,20 +315,21 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
         if (i == _charCodes.length - 1)
           secureText += String.fromCharCode(_charCodes[i]);
         else
-          secureText += widget.obscuringCharacter;
+          secureText += widget.obscuringCharacter!;
       }
 
       secureTextStyle = widget.inputTextStyle;
     } else {
       secureText = widget.hintText;
       secureTextStyle = widget.inputTextStyle
-          .copyWith(color: widget.inputTextStyle.color.withOpacity(0.5));
+          .copyWith(color: widget.inputTextStyle.color!.withOpacity(0.5));
     }
 
-    final lengthSymbol =
-        widget.inputTextLengthSymbol ?? (Platform.localeName == 'ko_KR')
+    final lengthSymbol = widget.inputTextLengthSymbol == null
+        ? (Platform.localeName == 'ko_KR')
             ? '자'
-            : 'digit';
+            : 'digit'
+        : widget.inputTextLengthSymbol;
     final lengthText = '${_charCodes.length}$lengthSymbol';
 
     Widget viewKey = SizedBox();
@@ -425,7 +430,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
 
   Widget _buildStringKey(SecureKeyboardKey key, int keyRowsLength) {
     final keyText =
-        (_isShiftEnabled || widget.alwaysCaps) ? key.capsText : key.text;
+        (_isShiftEnabled || widget.alwaysCaps) ? key.capsText! : key.text!;
 
     return Expanded(
       flex: key.flex,
@@ -450,8 +455,8 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
   }
 
   Widget _buildActionKey(SecureKeyboardKey key, int keyRowsLength) {
-    String keyText;
-    Widget actionKey;
+    String? keyText;
+    Widget? actionKey;
 
     switch (key.action) {
       case SecureKeyboardKeyAction.Backspace:
@@ -463,7 +468,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
             },
             onLongPressUp: () {
               if (_backspaceEventGenerator != null) {
-                _backspaceEventGenerator.cancel();
+                _backspaceEventGenerator!.cancel();
                 _backspaceEventGenerator = null;
               }
             },
