@@ -130,9 +130,11 @@ class _WithSecureKeyboardState extends State<WithSecureKeyboard> {
               widget.controller.hide();
               if (onDoneKeyPressed != null) onDoneKeyPressed(charCodes);
             },
-            onCloseKeyPressed: () {
+            onCloseKeyPressed: () async {
               widget.controller.hide();
               if (onCloseKeyPressed != null) onCloseKeyPressed();
+
+              return false;
             });
       } else {
         secureKeyboard = SizedBox();

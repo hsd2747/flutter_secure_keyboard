@@ -32,7 +32,7 @@ class SecureKeyboard extends StatefulWidget {
   final ValueChanged<List<int>> onDoneKeyPressed;
 
   /// Called when the close key is pressed.
-  final VoidCallback onCloseKeyPressed;
+  final Future<bool> Function()? onCloseKeyPressed;
 
   /// Set the initial value of the input text.
   final String initText;
@@ -278,7 +278,7 @@ class _SecureKeyboardState extends State<SecureKeyboard> {
     // keyboardKey.insert(0, _buildKeyInputMonitor());
 
     return WillPopScope(
-      onWillPop: widget.onCloseKeyPressed as Future<bool> Function()?,
+      onWillPop: widget.onCloseKeyPressed,
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: widget.height + keyInputMonitorHeight,
